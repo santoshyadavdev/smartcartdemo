@@ -24,6 +24,11 @@ const angularApp = new AngularNodeAppEngine();
  * ```
  */
 
+app.get('/api/data', (req, res) => {
+  // Handle API request
+  res.json({ message: 'Hello from /api/data' });
+});
+
 /**
  * Serve static files from /browser
  */
