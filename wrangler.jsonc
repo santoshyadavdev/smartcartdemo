@@ -7,8 +7,5 @@
   "assets": {
     "directory": "dist/smartcart/browser",
     "binding": "ASSETS"
-  },
-  "alias": {
-    "xhr2": "./src/empty.mjs"
   }
 }
