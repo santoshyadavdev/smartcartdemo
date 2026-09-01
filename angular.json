@@ -24,17 +24,17 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "styles": ["src/styles.css"],
             "server": "src/main.server.ts",
             "outputMode": "server",
             "security": {
               "allowedHosts": ["smartcartdemo.santosh-yadav198613.workers.dev"]
             },
             "ssr": {
-              "entry": "src/server.ts"
-            }
+              "entry": "src/server.ts",
+              "platform": "neutral"
+            },
+            "externalDependencies": ["xhr2"]
           },
           "configurations": {
             "production": {
