@@ -1,10 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { httpResource } from '@angular/common/http';
-import { JsonPipe } from '@angular/common';
+import { HttpClient, httpResource } from '@angular/common/http';
+import { JsonPipe, AsyncPipe } from '@angular/common';
 
 @Component({
-  imports: [RouterOutlet, JsonPipe],
+  imports: [RouterOutlet, JsonPipe, AsyncPipe],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
@@ -12,5 +12,5 @@ import { JsonPipe } from '@angular/common';
 export class App {
   protected readonly title = signal('smartcart');
 
-  data = httpResource(() => '/api/data');
+  data = inject(HttpClient).get('/api/data');
 }
