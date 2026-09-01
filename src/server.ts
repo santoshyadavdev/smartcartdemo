@@ -1,5 +1,8 @@
 import { AngularAppEngine, createRequestHandler } from '@angular/ssr';
 
+interface Env {
+  ASSETS: { fetch: (request: Request) => Promise<Response> };
+}
 
 function json(data: unknown, status = 200): Response {
   return new Response(JSON.stringify(data), {
@@ -10,21 +13,27 @@ function json(data: unknown, status = 200): Response {
 
 const angularApp = new AngularAppEngine();
 
+// Named export for Angular dev server (ng serve)
+export const reqHandler = createRequestHandler(async (request: Request) => {
+  const url = new URL(request.url);
 
-export const reqHandler = createRequestHandler(async (req: Request) => {
-  const url = new URL(req.url);
-  console.log(`Request URL: ${url.pathname}`);
   if (url.pathname === '/api/data') {
     return json({
       message: 'This is the root endpoint. You can define your API endpoints here.',
     });
   }
 
-  const angularResponse: Response | null = await angularApp.handle(req);
-
+  const angularResponse = await angularApp.handle(request);
   if (angularResponse) {
     return angularResponse;
   }
 
   return new Response('Not Found', { status: 404 });
 });
+
+// Default export for Cloudflare Workers
+export default {
+  async fetch(request: Request, env: Env): Promise<Response| null> {
+    return reqHandler(request) ?? env.ASSETS.fetch(request);
+  },
+};
