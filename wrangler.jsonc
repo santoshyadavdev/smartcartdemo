@@ -1,11 +1,11 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "smartcartdemo",
-  "main": "dist/smartcartdemo/server/server.mjs",
+  "main": "dist/smartcart/server/server.mjs",
   "compatibility_date": "2026-08-08",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
-    "directory": "dist/smartcartdemo/browser",
+    "directory": "dist/smartcart/browser",
     "binding": "ASSETS"
   },
   "alias": {
